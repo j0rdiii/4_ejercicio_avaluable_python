@@ -8,10 +8,10 @@ app = FastAPI()
 
 # Defino el modelo de datos para un producto
 class Producto(BaseModel):
-    id: int = Field(..., gt=0, description="Identificador único del producto") # ID tiene ser mayor que 0
-    nombre: str = Field(..., min_length=1, max_length=100, description="Nombre del producto") # Nombre con longitud entre 1 y 100 caracteres
-    precio: float = Field(..., gt=0, description="Precio del producto") # Precio tiene mayor que 0
-    categoria: str = Field(..., min_length=1, max_length=50, description="Categoria del producto") # Categoría con longitud entre 1 y 50 caracteres
+    id: int = Field(..., gt=0, description="Identificador único del producto")
+    nombre: str = Field(..., min_length=1, max_length=100, description="Nombre del producto")
+    precio: float = Field(..., gt=0, description="Precio del producto")
+    categoria: str = Field(..., min_length=1, max_length=50, description="Categoria del producto")
 
 # Lista para almacenar productos y variable para ventas totales
 productos: List[Producto] = []
@@ -51,7 +51,7 @@ def modificar_producto(id: int, datos: Producto):
 # Endpoint para eliminar un producto por su ID
 @app.delete("/productos/{id}", response_model=dict)
 def eliminar_producto(id: int):
-    global productos
+    global productos    # Indica que una variable dentro de una función se refiere a una variable que está fuera de la función en lugar de crear una nueva variable local.
     for producto in productos:
         if producto.id == id:
             productos.remove(producto)
